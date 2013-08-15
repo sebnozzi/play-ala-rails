@@ -12,12 +12,16 @@ import org.squeryl.{ Session, SessionFactory }
 import models.AppSchema
 import org.squeryl.PrimitiveTypeMode._
 
+import com.googlecode.flyway.core.Flyway;
+
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     initDbSession(app)
     if (Play.isTest) {
       createDbSchema()
+    } else {
+      migrateDb(app)
     }
   }
 
@@ -25,6 +29,15 @@ object Global extends GlobalSettings {
     inTransaction {
       AppSchema.create
     }
+  }
+
+  def migrateDb(app: Application) {
+    val flyway = new Flyway()
+    val url = app.configuration.getString("db.default.url").get
+    val user = app.configuration.getString("db.default.user").get
+    val password = app.configuration.getString("db.default.pass").get
+    flyway.setDataSource(url, user, password)
+    flyway.migrate()
   }
 
   def initDbSession(app: Application) {
