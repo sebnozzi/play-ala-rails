@@ -2,18 +2,25 @@ package steps
 
 import cucumber.api.scala.{ ScalaDsl, EN }
 import org.scalatest.matchers.ShouldMatchers
-import cucumber.runtime.PendingException
 
-class WebSteps extends ScalaDsl with EN with ShouldMatchers {
+import testhelpers.PlayCucumberSupport
+
+import play.api._
+import play.api.mvc._
+
+class WebSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSupport {
 
   When("""^I go to the "([^"]*)" page$""") { (pageName: String) =>
-    //// Express the Regexp above with the code you wish you had
-    throw new PendingException()
+    val baseUrl = s"http://localhost:$port"
+    val pageUrl: String = pageName match {
+      case "user list" => controllers.routes.UserActions.index().url
+      case _ => throw new RuntimeException("unsupported page")
+    }
+    browser.goTo(baseUrl + pageUrl)
   }
 
-  Then("""^I should see "([^"]*)"$""") { (excpectedText: String) =>
-    //// Express the Regexp above with the code you wish you had
-    throw new PendingException()
+  Then("""^I should see "([^"]*)"$""") { (expectedText: String) =>
+    driver.getPageSource() should include(expectedText)
   }
 
 }

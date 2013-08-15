@@ -1,5 +1,12 @@
+@(users:List[User])
+
 @main("Users") {
     
-    Hello
+    <h1>Users</h1>
+    <ul>
+      @for(u <- users){
+        <li>@u.username</li>
+      }
+    </ul>
     
 }
