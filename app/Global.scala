@@ -1,15 +1,30 @@
-import org.squeryl.adapters.{ H2Adapter, MySQLAdapter }
-import org.squeryl.internals.DatabaseAdapter
-import org.squeryl.{ Session, SessionFactory }
 import play.api.db.DB
 import play.api.GlobalSettings
 
+import play.api.Play
+import play.api.Play.current
 import play.api.Application
+
+import org.squeryl.adapters.{ H2Adapter, MySQLAdapter }
+import org.squeryl.internals.DatabaseAdapter
+import org.squeryl.{ Session, SessionFactory }
+
+import models.AppSchema
+import org.squeryl.PrimitiveTypeMode._
 
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     initDbSession(app)
+    if (Play.isTest) {
+      createDbSchema()
+    }
+  }
+
+  def createDbSchema() {
+    inTransaction {
+      AppSchema.create
+    }
   }
 
   def initDbSession(app: Application) {
