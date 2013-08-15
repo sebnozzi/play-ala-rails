@@ -10,10 +10,12 @@ class ListOfUsersSteps extends ScalaDsl with EN with ShouldMatchers {
     //// Express the Regexp above with the code you wish you had
     throw new PendingException()
   }
+  
   When("""^I go to the "([^"]*)" page$""") { (pageName: String) =>
     //// Express the Regexp above with the code you wish you had
     throw new PendingException()
   }
+  
   Then("""^I should see "([^"]*)"$""") { (excpectedText: String) =>
     //// Express the Regexp above with the code you wish you had
     throw new PendingException()
