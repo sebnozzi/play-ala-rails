@@ -24,7 +24,7 @@ object BrowserTestEnvironment {
     synchronized {
       if (!initialized) {
         initialized = true
-        PlayAppEnvironment.init()
+        PlayAppEnvironment.init(startApplication=false)
         val app = PlayAppEnvironment.fakeApp
 
         seleniumPort = app.configuration.getInt("selenium.port").getOrElse(3333)
@@ -42,7 +42,7 @@ object BrowserTestEnvironment {
   def shutdown() {
     synchronized {
       if (initialized) {
-        PlayAppEnvironment.shutdown()
+        PlayAppEnvironment.shutdown(stopApplication=false)
         server.stop
         browser.quit()
         initialized = false

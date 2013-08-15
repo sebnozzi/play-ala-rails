@@ -9,20 +9,22 @@ object PlayAppEnvironment extends AppTesting {
   private var initialized: Boolean = false
   var fakeApp:FakeApplication = _
 
-  def init() {
+  def init(startApplication:Boolean=true) {
     synchronized {
       if (!initialized) {
         fakeApp = appWithInMemoryDb()
-        Play.start(fakeApp)
+        if(startApplication)
+          Play.start(fakeApp)
         initialized = true
       }
     }
   }
 
-  def shutdown() {
+  def shutdown(stopApplication:Boolean=true) {
     synchronized {
       if (initialized) {
-        Play.stop()
+        if(stopApplication)
+          Play.stop()
         initialized = false
       }
     }
