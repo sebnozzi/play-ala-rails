@@ -11,7 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.remote.DesiredCapabilities
 
 
-object BrowserTestEnvironment {
+object PlayCucumberEnvironment {
 
   var server: TestServer = _
   var browser: TestBrowser = _
@@ -24,9 +24,8 @@ object BrowserTestEnvironment {
     synchronized {
       if (!initialized) {
         initialized = true
-        PlayAppEnvironment.init(startApplication=false)
-        val app = PlayAppEnvironment.fakeApp
-
+        val app = FakeApplication(additionalConfiguration = inMemoryDatabase())
+        
         seleniumPort = app.configuration.getInt("selenium.port").getOrElse(3333)
         server = TestServer(seleniumPort, app)
         server.start
@@ -42,7 +41,6 @@ object BrowserTestEnvironment {
   def shutdown() {
     synchronized {
       if (initialized) {
-        PlayAppEnvironment.shutdown(stopApplication=false)
         server.stop
         browser.quit()
         initialized = false
