@@ -18,10 +18,12 @@ object ApplicationBuild extends Build {
     anorm
   )
 
+  val cucumberSettings = CucumberPlugin.cucumberSettings ++
+    Seq(CucumberPlugin.cucumberFeaturesLocation := "./test/features")
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     // Add your own project settings here
-    CucumberPlugin.cucumberSettings: _*
+    cucumberSettings: _*
   )
 
 }
