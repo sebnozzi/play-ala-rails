@@ -40,6 +40,16 @@ class UserDaoSpec extends Specification with AppTesting {
       val user = UserDao.findByUsername("manager").get
       assert(user.isPersisted)
     }
+    
+    "should find all users" in new WithDbData {
+      def prepareDbWithData() {
+        UserDao.createUser(username = "manager")
+        UserDao.createUser(username = "secretary")
+        UserDao.createUser(username = "employee")
+      }
+      val users = UserDao.findAll()
+      assert(users.map(_.username).toSet === Set("manager", "secretary", "employee"))
+    }
 
   }
 

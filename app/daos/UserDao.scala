@@ -16,4 +16,8 @@ object UserDao {
     users.find(user => user.username == username)
   }
   
+  def findAll():List[User] = inTransaction {
+    users.seq.toList
+  }
+  
 }
