@@ -19,7 +19,9 @@ object ApplicationBuild extends Build {
   )
 
   val cucumberSettings = CucumberPlugin.cucumberSettings ++
-    Seq(CucumberPlugin.cucumberFeaturesLocation := "./test/features")
+    Seq(
+        CucumberPlugin.cucumberFeaturesLocation := "./test/features",
+        CucumberPlugin.cucumberStepsBasePackage := "steps")
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     // Add your own project settings here

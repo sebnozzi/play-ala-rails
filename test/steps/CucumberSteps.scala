@@ -1,3 +1,5 @@
+package steps
+
 import cucumber.api.scala.{ScalaDsl, EN}
 import org.scalatest.matchers.ShouldMatchers
 
