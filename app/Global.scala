@@ -37,6 +37,7 @@ object Global extends GlobalSettings {
     val user = app.configuration.getString("db.default.user").get
     val password = app.configuration.getString("db.default.pass").get
     flyway.setDataSource(url, user, password)
+    flyway.setInitOnMigrate(true)
     flyway.migrate()
   }
 
