@@ -14,8 +14,8 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here
     scalaTest,
     // Play's default dependencies
-    jdbc,
-    anorm
+    //anorm,
+    jdbc
   )
 
   val cucumberSettings = CucumberPlugin.cucumberSettings ++
