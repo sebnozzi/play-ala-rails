@@ -26,8 +26,24 @@ class UserDaoSpec extends Specification {
         assert(user.username === "manager")
       }
     }
+    
+    "persist user when creating it" in {
+      running(appWithInMemoryDb) {
+        val user: User = UserDao.createUser(username = "manager")
+        assert(user.isPersisted)
+      }
+    }
 
-
+    "retrieve an user" in new WithDbData {
+      def prepareDbWithData() {
+        UserDao.createUser(username = "manager")
+      }
+      val user = UserDao.findByUsername("manager")
+      assert(user.username === "manager")
+    }
+    
+    
+    
   }
 
 }
