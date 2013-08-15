@@ -12,6 +12,8 @@ object UserDao {
     users.insert(new User(username))
   }
 
-  def findByUsername(username:String):User = User(username)
+  def findByUsername(username:String):Option[User] = inTransaction {
+    users.find(user => user.username == username)
+  }
   
 }

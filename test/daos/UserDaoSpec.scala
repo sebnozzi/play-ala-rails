@@ -38,8 +38,16 @@ class UserDaoSpec extends Specification {
       def prepareDbWithData() {
         UserDao.createUser(username = "manager")
       }
-      val user = UserDao.findByUsername("manager")
+      val user = UserDao.findByUsername("manager").get
       assert(user.username === "manager")
+    }
+    
+    "have persisted users when retrieving" in new WithDbData {
+      def prepareDbWithData() {
+        UserDao.createUser(username = "manager")
+      }
+      val user = UserDao.findByUsername("manager").get
+      assert(user.isPersisted)
     }
     
     
