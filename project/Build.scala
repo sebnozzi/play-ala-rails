@@ -10,6 +10,7 @@ object ApplicationBuild extends Build {
 
   val scalaTest = "org.scalatest" % "scalatest_2.10" % "2.0.M5b" % "test"  
   val squeryl = "org.squeryl" %% "squeryl" % "0.9.5-6"
+  val mysql = "mysql" % "mysql-connector-java" % "5.1.12"    
   
   val phantomJsDriver = "com.github.detro.ghostdriver" % "phantomjsdriver" % "1.0.3" % "test"  
   
@@ -17,6 +18,7 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here
     scalaTest,
     squeryl,
+    mysql,
     phantomJsDriver,
     // Play's default dependencies
     //anorm,
