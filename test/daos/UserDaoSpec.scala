@@ -11,7 +11,7 @@ class UserDaoSpec extends Specification {
 
   "UserDao" should {
     "create an user" in {
-      running(FakeApplication()) {
+      running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
         val user: User = UserDao.createUser(username = "manager")
         assert(user.username === "manager")
       }
