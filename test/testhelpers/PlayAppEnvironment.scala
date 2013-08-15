@@ -4,7 +4,7 @@ import play.api.Play
 
 import play.api.test.FakeApplication
 
-object PlayCucumberEnvironment extends AppTesting {
+object PlayAppEnvironment extends AppTesting {
 
   private var initialized: Boolean = false
 

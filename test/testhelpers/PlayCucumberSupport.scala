@@ -5,11 +5,11 @@ import cucumber.api.scala.{ ScalaDsl, EN }
 trait PlayCucumberSupport { self: ScalaDsl with EN =>
 
   Before {
-    PlayCucumberEnvironment.init()
+    PlayAppEnvironment.init()
   }
 
   After {
-    PlayCucumberEnvironment.shutdown()
+    PlayAppEnvironment.shutdown()
   }
 
 }
