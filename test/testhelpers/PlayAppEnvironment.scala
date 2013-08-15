@@ -7,11 +7,12 @@ import play.api.test.FakeApplication
 object PlayAppEnvironment extends AppTesting {
 
   private var initialized: Boolean = false
+  var fakeApp:FakeApplication = _
 
   def init() {
     synchronized {
       if (!initialized) {
-        val fakeApp = appWithInMemoryDb()
+        fakeApp = appWithInMemoryDb()
         Play.start(fakeApp)
         initialized = true
       }
