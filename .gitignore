@@ -16,3 +16,5 @@ dist
 /.target
 /bin
 .cache
+/chromedriver.log
+/libpeerconnection.log
