@@ -11,10 +11,13 @@ object ApplicationBuild extends Build {
   val scalaTest = "org.scalatest" % "scalatest_2.10" % "2.0.M5b" % "test"  
   val squeryl = "org.squeryl" %% "squeryl" % "0.9.5-6"
   
+  val phantomJsDriver = "com.github.detro.ghostdriver" % "phantomjsdriver" % "1.0.3" % "test"  
+  
   val appDependencies = Seq(
     // Add your project dependencies here
     scalaTest,
     squeryl,
+    phantomJsDriver,
     // Play's default dependencies
     //anorm,
     jdbc

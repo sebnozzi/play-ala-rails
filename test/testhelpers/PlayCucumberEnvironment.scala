@@ -5,9 +5,9 @@ import play.api.test.Helpers._
 import play.api.Play
 import play.api.Play.current
 
-
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.phantomjs.PhantomJSDriver
 import org.openqa.selenium.remote.DesiredCapabilities
 
 
@@ -29,11 +29,19 @@ object PlayCucumberEnvironment {
         seleniumPort = app.configuration.getInt("selenium.port").getOrElse(3333)
         server = TestServer(seleniumPort, app)
         server.start
-
+        
         val headlessMode = app.configuration.getBoolean("cucumber.headless").getOrElse(true)
 
-        browser = TestBrowser.of(classOf[ChromeDriver])
-        driver = browser.getDriver
+        if (headlessMode) {
+          // PhantomJS has to be installed and added to the operating system PATH
+          val cap = new DesiredCapabilities()
+          driver = new PhantomJSDriver(cap)
+          browser = TestBrowser(driver, None)
+        } else {
+          browser = TestBrowser.of(classOf[ChromeDriver])
+          driver = browser.getDriver
+        }        
+
       }
     }
   }
