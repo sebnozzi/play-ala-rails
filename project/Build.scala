@@ -11,7 +11,8 @@ object ApplicationBuild extends Build {
   val scalaTest = "org.scalatest" % "scalatest_2.10" % "2.0.M5b" % "test"  
   val squeryl = "org.squeryl" %% "squeryl" % "0.9.5-6"
   val mysql = "mysql" % "mysql-connector-java" % "5.1.12"    
-  
+  val flyway = "com.googlecode.flyway" % "flyway-core" % "2.1.1"
+ 
   val phantomJsDriver = "com.github.detro.ghostdriver" % "phantomjsdriver" % "1.0.3" % "test"  
   
   val appDependencies = Seq(
@@ -20,6 +21,7 @@ object ApplicationBuild extends Build {
     squeryl,
     mysql,
     phantomJsDriver,
+    flyway,
     // Play's default dependencies
     //anorm,
     jdbc
