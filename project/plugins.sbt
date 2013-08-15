@@ -6,3 +6,10 @@ resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/release
 
 // Use the Play sbt plugin for Play projects
 addSbtPlugin("play" % "sbt-plugin" % "2.1.1")
+
+
+// Cucumber 
+resolvers += "Templemore Repository" at "http://templemore.co.uk/repo"
+
+// Cucumber
+addSbtPlugin("templemore" % "sbt-cucumber-plugin" % "0.7.2")
