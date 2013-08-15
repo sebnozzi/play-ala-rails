@@ -8,8 +8,12 @@ object ApplicationBuild extends Build {
   val appName         = "PlayCucumber"
   val appVersion      = "1.0-SNAPSHOT"
 
+  val scalaTest = "org.scalatest" % "scalatest_2.10" % "2.0.M5b" % "test"  
+  
   val appDependencies = Seq(
-    // Add your project dependencies here,
+    // Add your project dependencies here
+    scalaTest,
+    // Play's default dependencies
     jdbc,
     anorm
   )
