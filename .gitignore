@@ -18,3 +18,4 @@ dist
 .cache
 /chromedriver.log
 /libpeerconnection.log
+.DS_Store
