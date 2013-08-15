@@ -5,7 +5,7 @@ import java.sql.Connection
 import daos.UserDao
 import play.Logger
 
-class V0002__ScalaMigration extends JdbcMigration {
+class V1_02__ScalaMigration extends JdbcMigration {
 
   override def migrate(connection: Connection) {
     def insertUserName(username: String) {
