@@ -2,7 +2,6 @@ package steps
 
 import cucumber.api.scala.{ ScalaDsl, EN }
 import org.scalatest.matchers.ShouldMatchers
-import cucumber.runtime.PendingException
 import testhelpers.PlayCucumberSupport
 import daos.UserDao
 
