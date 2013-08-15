@@ -11,6 +11,14 @@ class UserDaoSpec extends Specification {
 
   def appWithInMemoryDb() = FakeApplication(additionalConfiguration = inMemoryDatabase())
 
+  abstract class WithDbData extends WithApplication(app = appWithInMemoryDb) {
+    override def around[T](t: => T)(implicit evidence: AsResult[T]) = super.around {
+      prepareDbWithData()
+      t
+    }
+    def prepareDbWithData()
+  }
+
   "UserDao" should {
     "create an user" in {
       running(appWithInMemoryDb) {
