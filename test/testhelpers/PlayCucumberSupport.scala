@@ -14,11 +14,11 @@ trait PlayCucumberSupport { self: ScalaDsl with EN =>
 
   protected def port = PlayCucumberEnvironment.port
 
-  Before {
+  Before() { s => 
     PlayCucumberEnvironment.init()
   }
 
-  After {
+  After() { s => 
     PlayCucumberEnvironment.shutdown()
   }
 

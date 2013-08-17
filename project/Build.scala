@@ -13,7 +13,7 @@ object ApplicationBuild extends Build {
   val mysql = "mysql" % "mysql-connector-java" % "5.1.12"    
   val flyway = "com.googlecode.flyway" % "flyway-core" % "2.1.1"
   
-  //val cucumberScala =  "info.cukes" % "cucumber-scala" % "1.1.3" % "test"
+  val cucumberScala =  "info.cukes" % "cucumber-scala" % "1.1.2" % "test"
   
   val phantomJsDriver = "com.github.detro.ghostdriver" % "phantomjsdriver" % "1.0.3" % "test"  
   
@@ -24,7 +24,7 @@ object ApplicationBuild extends Build {
     mysql,
     phantomJsDriver,
     flyway,
-    //cucumberScala,
+    cucumberScala,
     // Play's default dependencies
     //anorm,
     jdbc

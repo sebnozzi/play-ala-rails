@@ -23,9 +23,9 @@ object PlayCucumberEnvironment {
   def driver = _driver
   def server = _server
   def port = _seleniumPort
-  
+
   def init() {
-    //synchronized {
+    synchronized {
       if (!initialized) {
         initialized = true
         val app = FakeApplication(additionalConfiguration = inMemoryDatabase())
@@ -49,19 +49,21 @@ object PlayCucumberEnvironment {
         }
         Logger.info("started test browser")
       }
-    //}
+    }
   }
 
   def shutdown() {
-    //synchronized {
+    synchronized {
       if (initialized) {
         _server.stop
         Logger.info("stopped test server")
         _browser.quit()
         Logger.info("stopped test browser")
+        Play.stop()
+        Logger.info("stopped fake app")
         initialized = false
       }
-    //}
+    }
   }
 
 }
