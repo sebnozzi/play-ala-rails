@@ -13,12 +13,10 @@ class UserSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSu
   Given("""^that user "([^"]*)" exists$""") { (username: String) =>
     UserDao.createUser(username)
   }
-  
-  Given("""^that user "([^"]*)" wrote the following posts$""") { (username: String, table: DataTable) =>
+
+  Given("""^that user "([^"]*)" posted "([^"]*)"$""") { (username: String, text: String) =>
     val user = UserDao.findByUsername(username).get
-    table.flatten().foreach{ postText => 
-      PostDao.createPost(user, postText)
-    }
+    PostDao.createPost(user, text)
   }
-  
+
 }

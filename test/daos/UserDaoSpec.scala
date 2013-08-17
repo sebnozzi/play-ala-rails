@@ -32,6 +32,16 @@ class UserDaoSpec extends Specification with AppTesting {
       val user = UserDao.findByUsername("manager").get
       assert(user.username === "manager")
     }
+    
+    "retrieve by ID" in new WithDbData {
+      var id:Long = _
+      def prepareDbWithData() {
+        val user = UserDao.createUser(username = "manager")
+        id = user.id
+      }
+      val user = UserDao.findById(id).get
+      assert(user.username === "manager")
+    }
 
     "have persisted users when retrieving" in new WithDbData {
       def prepareDbWithData() {

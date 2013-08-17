@@ -14,7 +14,7 @@ object PostDao {
     }
   }
 
-  def findForUser(user: User): Seq[Post] = {
+  def findForUser(user: User): List[Post] = {
     inTransaction {
       user.posts.toList
     }

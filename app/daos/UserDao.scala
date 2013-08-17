@@ -16,6 +16,10 @@ object UserDao {
     users.find(user => user.username == username)
   }
   
+  def findById(userId:Long):Option[User] = inTransaction {
+    users.find(user => user.id == userId)
+  }
+  
   def findAll():List[User] = inTransaction {
     users.seq.toList
   }

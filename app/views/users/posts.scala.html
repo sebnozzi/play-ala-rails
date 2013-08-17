@@ -1,0 +1,12 @@
+@(user:User, posts:List[Post])
+
+@main("Posts") {
+    
+    <h1>Posts</h1>
+    <ul>
+      @for(p <- posts){
+        <li class="post">@p.text</li>
+      }
+    </ul>
+    
+}

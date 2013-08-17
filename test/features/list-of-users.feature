@@ -1,7 +1,7 @@
 Feature: List of users
 
   In order to see who uses the system, I want to see a list of users
-
+  
   Scenario: See the list of users
     Given that user "manager" exists
     And that user "secretary" exists
