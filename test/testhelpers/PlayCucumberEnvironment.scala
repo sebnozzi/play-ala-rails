@@ -4,56 +4,63 @@ import play.api.test._
 import play.api.test.Helpers._
 import play.api.Play
 import play.api.Play.current
-
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.phantomjs.PhantomJSDriver
 import org.openqa.selenium.remote.DesiredCapabilities
-
+import play.Logger
 
 object PlayCucumberEnvironment {
 
-  var server: TestServer = _
-  var browser: TestBrowser = _
-  var driver: WebDriver = _
+  private var _server: TestServer = _
+  private var _browser: TestBrowser = _
+  private var _driver: WebDriver = _
   var seleniumPort: Int = _
 
   private var initialized: Boolean = false
 
+  def browser = _browser
+  def driver = _driver
+  def server = _server
+  
   def init() {
-    synchronized {
+    //synchronized {
       if (!initialized) {
         initialized = true
         val app = FakeApplication(additionalConfiguration = inMemoryDatabase())
-        
+        Logger.info("started fake app")
+
         seleniumPort = app.configuration.getInt("selenium.port").getOrElse(3333)
-        server = TestServer(seleniumPort, app)
-        server.start
-        
+        _server = TestServer(seleniumPort, app)
+        _server.start
+        Logger.info("started test server")
+
         val headlessMode = app.configuration.getBoolean("cucumber.headless").getOrElse(true)
 
         if (headlessMode) {
           // PhantomJS has to be installed and added to the operating system PATH
           val cap = new DesiredCapabilities()
-          driver = new PhantomJSDriver(cap)
-          browser = TestBrowser(driver, None)
+          _driver = new PhantomJSDriver(cap)
+          _browser = TestBrowser(_driver, None)
         } else {
-          browser = TestBrowser.of(classOf[ChromeDriver])
-          driver = browser.getDriver
-        }        
-
+          _browser = TestBrowser.of(classOf[ChromeDriver])
+          _driver = _browser.getDriver
+        }
+        Logger.info("started test browser")
       }
-    }
+    //}
   }
 
   def shutdown() {
-    synchronized {
+    //synchronized {
       if (initialized) {
-        server.stop
-        browser.quit()
+        _server.stop
+        Logger.info("stopped test server")
+        _browser.quit()
+        Logger.info("stopped test browser")
         initialized = false
       }
-    }
+    //}
   }
 
 }

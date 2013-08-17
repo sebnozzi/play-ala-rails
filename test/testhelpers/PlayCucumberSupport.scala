@@ -8,9 +8,9 @@ import cucumber.api.scala.{ ScalaDsl, EN }
 
 trait PlayCucumberSupport { self: ScalaDsl with EN =>
 
-  protected lazy val server: TestServer = PlayCucumberEnvironment.server
-  protected lazy val browser: TestBrowser = PlayCucumberEnvironment.browser
-  protected lazy val driver: WebDriver = PlayCucumberEnvironment.driver
+  protected def server: TestServer = PlayCucumberEnvironment.server
+  protected def browser: TestBrowser = PlayCucumberEnvironment.browser
+  protected def driver: WebDriver = PlayCucumberEnvironment.driver
 
   protected lazy val port = PlayCucumberEnvironment.seleniumPort
 
