@@ -12,7 +12,7 @@ trait PlayCucumberSupport { self: ScalaDsl with EN =>
   protected def browser: TestBrowser = PlayCucumberEnvironment.browser
   protected def driver: WebDriver = PlayCucumberEnvironment.driver
 
-  protected lazy val port = PlayCucumberEnvironment.seleniumPort
+  protected def port = PlayCucumberEnvironment.port
 
   Before {
     PlayCucumberEnvironment.init()

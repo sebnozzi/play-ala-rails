@@ -15,13 +15,14 @@ object PlayCucumberEnvironment {
   private var _server: TestServer = _
   private var _browser: TestBrowser = _
   private var _driver: WebDriver = _
-  var seleniumPort: Int = _
+  private var _seleniumPort: Int = _
 
   private var initialized: Boolean = false
 
   def browser = _browser
   def driver = _driver
   def server = _server
+  def port = _seleniumPort
   
   def init() {
     //synchronized {
@@ -30,8 +31,8 @@ object PlayCucumberEnvironment {
         val app = FakeApplication(additionalConfiguration = inMemoryDatabase())
         Logger.info("started fake app")
 
-        seleniumPort = app.configuration.getInt("selenium.port").getOrElse(3333)
-        _server = TestServer(seleniumPort, app)
+        _seleniumPort = app.configuration.getInt("selenium.port").getOrElse(3333)
+        _server = TestServer(_seleniumPort, app)
         _server.start
         Logger.info("started test server")
 
