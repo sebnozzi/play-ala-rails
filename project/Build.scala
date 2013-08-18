@@ -5,7 +5,7 @@ import templemore.sbt.cucumber.CucumberPlugin
 
 object ApplicationBuild extends Build {
 
-  val appName         = "PlayCucumber"
+  val appName         = "PlayAlaRails"
   val appVersion      = "1.0-SNAPSHOT"
 
   val scalaTest = "org.scalatest" % "scalatest_2.10" % "2.0.M5b" % "test"  
