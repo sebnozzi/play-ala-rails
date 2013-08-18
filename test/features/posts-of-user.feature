@@ -9,3 +9,4 @@ Feature: Posts of User(s)
     And that user "manager" posted "working like crazy"
     When I go to the posts page of user "manager"
     Then I should see 3 posts
+    And I should see "Posts of manager"

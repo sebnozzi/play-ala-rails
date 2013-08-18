@@ -1,8 +1,8 @@
 @(user:User, posts:List[Post])
 
-@main("Posts") {
+@main("Posts of " + user.username) {
     
-    <h1>Posts</h1>
+    <h1>Posts of @user.username</h1>
     <ul>
       @for(p <- posts){
         <li class="post">@p.text</li>
