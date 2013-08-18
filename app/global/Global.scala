@@ -18,9 +18,9 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     if (Play.isTest) {
-      Logger.debug("Schema will be generated with these statements:")
-      printSchemaGenerationSQL()
       Tables.initialize
+      Logger.debug("Schema generation SQL:")
+      printSchemaGenerationSQL()
     } else {
       val config = Map(
         "driver" -> app.configuration.getString("db.default.driver").get,
