@@ -5,17 +5,21 @@ import play.api.GlobalSettings
 import play.api.Play
 import play.api.Play.current
 import play.api.Application
-import com.googlecode.flyway.core.Flyway
 import play.api.Logger
+
+import com.googlecode.flyway.core.Flyway
+
 import com.github.aselab.activerecord._
 import com.github.aselab.activerecord.ActiveRecordConfig
+
 import models.Tables
 
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     if (Play.isTest) {
-      printSchemaGeneration()
+      Logger.debug("Schema will be generated with these statements:")
+      printSchemaGenerationSQL()
       Tables.initialize
     } else {
       val config = Map(
@@ -28,7 +32,7 @@ object Global extends GlobalSettings {
     }
   }
 
-  def printSchemaGeneration() {
+  def printSchemaGenerationSQL() {
     import org.squeryl.{ Session, SessionFactory }
     import com.github.aselab.activerecord.dsl._
     import com.github.aselab.activerecord.squeryl.Implicits._
