@@ -1,27 +1,26 @@
 package daos
 
-import org.squeryl.PrimitiveTypeMode._
-
 import models._
-import AppSchema._
 
+import com.github.aselab.activerecord._
+import dsl._
 
 object UserDao {
 
-  def createUser(username: String): User = inTransaction {
-    users.insert(new User(username))
+  def createUser(username: String): User = {
+    User(username).create
   }
 
-  def findByUsername(username:String):Option[User] = inTransaction {
-    users.find(user => user.username == username)
+  def findByUsername(username: String): Option[User] = {
+    User.findBy("username", username)
   }
-  
-  def findById(userId:Long):Option[User] = inTransaction {
-    users.find(user => user.id == userId)
+
+  def findById(userId: Long): Option[User] = {
+    User.find(userId)
   }
-  
-  def findAll():List[User] = inTransaction {
-    users.seq.toList
+
+  def findAll(): List[User] = {
+    User.all.toList
   }
-  
+
 }
