@@ -1,12 +1,17 @@
 package steps
 
-import cucumber.api.scala.{ ScalaDsl, EN }
-import org.scalatest.matchers.ShouldMatchers
-import testhelpers.PlayCucumberSupport
 import play.api._
 import play.api.mvc._
-import daos.UserDao
+
+import cucumber.api.scala.{ ScalaDsl, EN }
+
+import org.scalatest.matchers.ShouldMatchers
+import testhelpers.PlayCucumberSupport
+
 import org.openqa.selenium.By
+
+import models._
+
 
 class WebSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSupport {
 
@@ -25,10 +30,11 @@ class WebSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSup
   }
 
   When("""^I go to the posts page of user "([^"]*)"$""") { (username: String) =>
-    val user = UserDao.findByUsername(username).get
+    val user = User.findBy("username", username).get
     val pageUrl = controllers.routes.UserActions.posts(user.id).url
     browser.goTo(baseUrl + pageUrl)
   }
+  
   Then("""^I should see (\d+) posts$""") { (expectedAmountOfPosts: Int) =>
     val elements = driver.findElements(new By.ByClassName("post"))
     assert(elements.size() === expectedAmountOfPosts)

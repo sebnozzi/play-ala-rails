@@ -2,20 +2,29 @@ package controllers
 
 import play.api._
 import play.api.mvc._
+
 import daos.UserDao
 import daos.PostDao
 
+import com.github.aselab.activerecord.{ views => aviews, _ }
+import dsl._
+
+import models._
+
 object UserActions extends Controller {
-  
+
   def index = Action {
-    val users = UserDao.findAll()
+    val users: List[User] = User.all.toList
     Ok(views.html.users.index(users))
   }
-  
+
   def posts(userId: Long) = Action {
-    val user = UserDao.findById(userId).get
-    val posts = PostDao.findAllForUser(user)
-    Ok(views.html.users.posts(user, posts))
+    User.find(userId).map { user =>
+      val posts = user.posts.toList
+      Ok(views.html.users.posts(user, posts))
+    } getOrElse {
+      BadRequest("user not found")
+    }
   }
-  
+
 }
