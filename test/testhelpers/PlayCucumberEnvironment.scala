@@ -55,9 +55,9 @@ object PlayCucumberEnvironment {
   def shutdown() {
     synchronized {
       if (initialized) {
-        _server.stop
+        if(_server != null) _server.stop
         Logger.info("stopped test server")
-        _browser.quit()
+        if(_browser != null) _browser.quit()
         Logger.info("stopped test browser")
         Play.stop()
         Logger.info("stopped fake app")
