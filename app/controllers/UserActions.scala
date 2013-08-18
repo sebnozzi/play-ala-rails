@@ -14,7 +14,7 @@ object UserActions extends Controller {
   
   def posts(userId: Long) = Action {
     val user = UserDao.findById(userId).get
-    val posts = PostDao.findForUser(user)
+    val posts = PostDao.findAllForUser(user)
     Ok(views.html.users.posts(user, posts))
   }
   
