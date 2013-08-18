@@ -3,9 +3,6 @@ package controllers
 import play.api._
 import play.api.mvc._
 
-import daos.UserDao
-import daos.PostDao
-
 import com.github.aselab.activerecord.{ views => aviews, _ }
 import dsl._
 
