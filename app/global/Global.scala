@@ -33,19 +33,6 @@ object Global extends GlobalSettings {
     }
   }
 
-  def shouldPrintSchemaGeneration(app: Application) = 
-    app.configuration.getBoolean("activerecord.schemageneration.printSQL").getOrElse(false)
-
-  def printSchemaGenerationSQL(app: Application) {
-    import org.squeryl.{ Session, SessionFactory }
-    import com.github.aselab.activerecord.dsl._
-    import com.github.aselab.activerecord.squeryl.Implicits._
-    inTransaction {
-      Logger.debug("Schema generation SQL:")
-      Tables.printDdl(str => Logger.debug(str))
-    }
-  }
-
   def migrateDb(app: Application) {
     val flyway = new Flyway()
 
@@ -56,6 +43,19 @@ object Global extends GlobalSettings {
     flyway.setDataSource(url, user, password)
     flyway.setInitOnMigrate(true)
     flyway.migrate()
+  }
+
+  def shouldPrintSchemaGeneration(app: Application) =
+    app.configuration.getBoolean("activerecord.schemageneration.printSQL").getOrElse(false)
+
+  def printSchemaGenerationSQL(app: Application) {
+    import org.squeryl.{ Session, SessionFactory }
+    import com.github.aselab.activerecord.dsl._
+    import com.github.aselab.activerecord.squeryl.Implicits._
+    inTransaction {
+      Logger.debug("Schema generation SQL:")
+      Tables.printDdl(str => Logger.debug(str))
+    }
   }
 
 }
