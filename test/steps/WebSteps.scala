@@ -18,7 +18,7 @@ class WebSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSup
   def baseUrl = s"http://localhost:$port"
 
   When("""^I go to the "([^"]*)" page$""") { (pageName: String) =>
-    val pageUrl: String = pageName match {
+    val pageUrl = pageName match {
       case "user list" => controllers.routes.UserActions.index().url
       case _ => throw new RuntimeException("unsupported page")
     }
@@ -37,7 +37,7 @@ class WebSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSup
   
   Then("""^I should see (\d+) posts$""") { (expectedAmountOfPosts: Int) =>
     val elements = driver.findElements(new By.ByClassName("post"))
-    assert(elements.size() === expectedAmountOfPosts)
+    elements should have length expectedAmountOfPosts
   }
 
 }
