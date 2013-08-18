@@ -8,7 +8,7 @@ import play.api.test.Helpers._
 import testhelpers.AppTesting
 
 import models._
-import org.squeryl.PrimitiveTypeMode.inTransaction
+
 
 class PostDaoSpec extends Specification with AppTesting {
 
@@ -29,14 +29,12 @@ class PostDaoSpec extends Specification with AppTesting {
         val post: Post = PostDao.createPost(user, text = "Hello there")
         assert(post.isPersisted)
         assert(post.text === "Hello there")
-        inTransaction {
-          assert(post.user.head === user)
-        }
+        assert(post.user.toOption.get === user)
       }
     }
 
     "retrieve posts" in new WithTestData {
-      val posts = PostDao.findForUser(user)
+      val posts = PostDao.findAllForUser(user)
       assert(posts.head.text === "Hello there")
     }
 
