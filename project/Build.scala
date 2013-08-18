@@ -9,7 +9,7 @@ object ApplicationBuild extends Build {
   val appVersion      = "1.0-SNAPSHOT"
 
   val scalaTest = "org.scalatest" % "scalatest_2.10" % "2.0.M5b" % "test"  
-  val squeryl = "org.squeryl" %% "squeryl" % "0.9.5-6"
+  val activeRecord = "com.github.aselab" %% "scala-activerecord" % "0.2.2"
   val mysql = "mysql" % "mysql-connector-java" % "5.1.12"    
   val flyway = "com.googlecode.flyway" % "flyway-core" % "2.1.1"
   
@@ -20,13 +20,11 @@ object ApplicationBuild extends Build {
   val appDependencies = Seq(
     // Add your project dependencies here
     scalaTest,
-    squeryl,
+    activeRecord,
     mysql,
     phantomJsDriver,
     flyway,
     cucumberScala,
-    // Play's default dependencies
-    //anorm,
     jdbc
   )
 
