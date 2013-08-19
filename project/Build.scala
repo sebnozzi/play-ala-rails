@@ -36,6 +36,8 @@ object ApplicationBuild extends Build {
     |import play.core.StaticApplication
     |val app =  new StaticApplication(new java.io.File("."))
     |import models._
+    |import com.github.aselab.activerecord.{ views => aviews, _ }
+    |import dsl._
     |println("Play application initialized. Models imported.")
     """.stripMargin
    
