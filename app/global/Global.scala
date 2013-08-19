@@ -33,6 +33,15 @@ object Global extends GlobalSettings {
     }
   }
 
+  override def onStop(app: Application) {
+    if (Play.isTest) {
+      dsl.inTransaction {
+        Tables.drop
+        Tables.cleanup
+      }
+    }
+  }
+
   def migrateDb(app: Application) {
     val flyway = new Flyway()
 

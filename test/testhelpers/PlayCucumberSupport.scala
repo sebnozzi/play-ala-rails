@@ -3,8 +3,8 @@ package testhelpers
 import play.api.test._
 import play.api.test.Helpers._
 import org.openqa.selenium.WebDriver
-
 import cucumber.api.scala.{ ScalaDsl, EN }
+import play.api.Logger
 
 trait PlayCucumberSupport { self: ScalaDsl with EN =>
 
@@ -13,14 +13,6 @@ trait PlayCucumberSupport { self: ScalaDsl with EN =>
   protected def driver: WebDriver = PlayCucumberEnvironment.driver
 
   protected def port = PlayCucumberEnvironment.port
-
-  Before() { s => 
-    PlayCucumberEnvironment.init()
-  }
-
-  After() { s => 
-    PlayCucumberEnvironment.shutdown()
-  }
 
 }
 
