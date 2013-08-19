@@ -50,5 +50,13 @@ class WebSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSup
     val expectedUrl = controllers.routes.UserActions.posts(user.id).url
     (driver.getCurrentUrl()) should endWith(expectedUrl)
   }
+  
+ Then("""^the post nr. (\d+) should start with "([^"]*)"$"""){ (postNr:Int, text:String) =>
+   val postsList = driver.findElement(new By.ByClassName("posts"))
+   val postListItems = postsList.findElements(new By.ByTagName("li"))
+   val postListItem = postListItems.get(postNr-1)
+   postListItem.getText() should startWith(text)
+ }
+
 
 }

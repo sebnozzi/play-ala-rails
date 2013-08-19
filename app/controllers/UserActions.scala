@@ -17,7 +17,7 @@ object UserActions extends Controller {
 
   def posts(userId: Long) = Action {
     User.find(userId).map { user =>
-      val posts = user.posts.toList
+      val posts = user.posts.orderBy(_.createdAt desc).toList
       Ok(views.html.users.posts(user, posts))
     } getOrElse {
       BadRequest("user not found")

@@ -3,7 +3,7 @@
 @main("Posts of " + user.username) {
     
     <h1>Posts of @user.username</h1>
-    <ul>
+    <ul class="posts">
       @for(p <- posts){
         <li class="post">@p.text</li>
       }
