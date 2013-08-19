@@ -23,7 +23,7 @@ object Global extends GlobalSettings {
         "username" -> app.configuration.getString("db.default.user").get,
         "password" -> app.configuration.getString("db.default.pass").get)
       /* NOTE: schema is generated only if completely empty
-         In production it won't be generated. Use migrations for that. */
+         In production new tables/fields won't be generated. Use migrations for that. */
       Tables.initialize(config)
       migrateDb(app)
     }

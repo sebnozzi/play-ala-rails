@@ -11,7 +11,7 @@ import models._
 object UserActions extends Controller {
 
   def index = Action {
-    val users: List[User] = User.all.toList
+    val users: List[User] = User.toList
     Ok(views.html.users.index(users))
   }
 
