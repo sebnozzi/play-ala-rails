@@ -5,7 +5,7 @@
     <h1>Users</h1>
     <ul>
       @for(u <- users){
-        <li>@u.username</li>
+        <li><a href="@routes.UserActions.posts(u.id)">@u.username</a></li>
       }
     </ul>
     
