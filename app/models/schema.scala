@@ -8,12 +8,12 @@ object Tables extends ActiveRecordTables {
   val posts = table[Post]("posts")
 }
 
-case class User(username:String) extends ActiveRecord {
+case class User(var username: String) extends ActiveRecord {
   lazy val posts = hasMany[Post]
 }
 
-case class Post(text:String) extends ActiveRecord {
-  val userId:Option[Int] = None
+case class Post(var text: String) extends ActiveRecord {
+  var userId: Option[Int] = None
   lazy val user = belongsTo[User]
 }
 
