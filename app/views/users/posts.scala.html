@@ -7,7 +7,7 @@
     @if(isLoggedInUser:Boolean){
       @helper.form(action = routes.UserActions.addPost(user.id) ) {
         <div>
-          <textarea cols="40" rows="3"></textarea>
+          <textarea name="post" cols="40" rows="3"></textarea>
         </div>
         <div>
           <button type="submit">Post</button>

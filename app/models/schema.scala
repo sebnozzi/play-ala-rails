@@ -13,7 +13,7 @@ case class User(var username: String) extends ActiveRecord {
 }
 
 case class Post(var text: String) extends ActiveRecord with Timestamps {
-  var userId: Option[Int] = None
+  var userId: Long = _
   lazy val user = belongsTo[User]
 }
 
