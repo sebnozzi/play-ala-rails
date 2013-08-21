@@ -1,8 +1,20 @@
-@(user:User, posts:List[Post])
+@(user:User, posts:List[Post], isLoggedInUser:Boolean)
 
 @main("Posts of " + user.username) {
     
     <h1>Posts of @user.username</h1>
+    
+    @if(isLoggedInUser:Boolean){
+      @helper.form(action = routes.UserActions.addPost(user.id) ) {
+        <div>
+          <textarea cols="40" rows="3"></textarea>
+        </div>
+        <div>
+          <button type="submit">Post</button>
+        </div>
+      }
+    }
+    
     <ul class="posts">
       @for(p <- posts){
         <li class="post">@p.text</li>
