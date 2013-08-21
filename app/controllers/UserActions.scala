@@ -26,7 +26,11 @@ object UserActions extends Controller with Authentication {
   }
 
   def addPost(userId: Long) = Authenticated { implicit r =>
-    Ok("ok")
+    if (r.user.id == userId) {
+      Redirect(routes.UserActions.posts(userId))
+    } else {
+      BadRequest("invalid user")
+    }
   }
 
 }
