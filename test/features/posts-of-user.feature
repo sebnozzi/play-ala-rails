@@ -4,10 +4,11 @@ Feature: Posts of User(s)
   
   Background:
     Given that user "manager" exists
-    And that user "manager" posted "first day at work"
-    And that user "manager" posted "meeting people"
-    And that user "manager" posted "working like crazy"
-  
+    And that user "manager" posted
+      | first day at work   |
+      | meeting people      | 
+      | working like crazy  |
+
   Scenario: See the posts of a user
     When I go to the posts page of user "manager"
     Then I should see 3 posts
