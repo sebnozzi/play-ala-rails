@@ -11,10 +11,10 @@ object ApplicationBuild extends Build {
   val scalaTest = "org.scalatest" % "scalatest_2.10" % "2.0.M5b" % "test"
   val activeRecord = "com.github.aselab" %% "scala-activerecord" % "0.2.2"
   val mysql = "mysql" % "mysql-connector-java" % "5.1.12"
-  val flyway = "com.googlecode.flyway" % "flyway-core" % "2.1.1"
+  val flyway = "com.googlecode.flyway" % "flyway-core" % "2.2"
 
-  val cucumberScala = "info.cukes" % "cucumber-scala" % "1.1.2" % "test"
-
+  val cucumberScala = "info.cukes" % "cucumber-scala_2.10" % "1.1.5-SNAPSHOT" % "test"  
+  
   val phantomJsDriver = "com.github.detro.ghostdriver" % "phantomjsdriver" % "1.0.3" % "test"
 
   val appDependencies = Seq(
@@ -42,13 +42,12 @@ object ApplicationBuild extends Build {
     """.stripMargin
    
   val mySettings = Seq(
-      initialCommands in console := consoleInitialStatements
+      initialCommands in console := consoleInitialStatements,
+      resolvers += "Sonatype-Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
     ) ++ cucumberSettings
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     // Add your own project settings here
     mySettings: _*)
-
-  // val app =  new StaticApplication(new java.io.File("."))
 
 }
