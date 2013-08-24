@@ -5,6 +5,9 @@
 # Home page
 GET     /                           controllers.Application.index
 
+GET     /login                      controllers.Application.logInPage
+POST    /login                      controllers.Application.logIn
+
 GET     /users                      controllers.UserActions.index
 GET     /users/:id/posts            controllers.UserActions.posts(id:Long)
 POST    /users/:id/posts            controllers.UserActions.addPost(id:Long)

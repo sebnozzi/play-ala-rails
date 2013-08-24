@@ -8,6 +8,9 @@ import testhelpers.PlayCucumberSupport
 import org.openqa.selenium.By
 import models._
 import java.util.concurrent.TimeUnit
+import cucumber.api.PendingException
+
+import org.fluentlenium.core.filter.FilterConstructor._
 
 class WebSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSupport {
 
@@ -50,13 +53,26 @@ class WebSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSup
     val expectedUrl = controllers.routes.UserActions.posts(user.id).url
     (driver.getCurrentUrl()) should endWith(expectedUrl)
   }
-  
- Then("""^the post nr. (\d+) should start with "([^"]*)"$"""){ (postNr:Int, text:String) =>
-   val postsList = driver.findElement(new By.ByClassName("posts"))
-   val postListItems = postsList.findElements(new By.ByTagName("li"))
-   val postListItem = postListItems.get(postNr-1)
-   postListItem.getText() should startWith(text)
- }
 
+  Then("""^the post nr. (\d+) should start with "([^"]*)"$""") { (postNr: Int, text: String) =>
+    val postsList = driver.findElement(new By.ByClassName("posts"))
+    val postListItems = postsList.findElements(new By.ByTagName("li"))
+    val postListItem = postListItems.get(postNr - 1)
+    postListItem.getText() should startWith(text)
+  }
+
+  When("""^I'm in the log-in page$""") { () =>
+    val pageUrl = controllers.routes.Application.logIn.url
+    browser.goTo(baseUrl + pageUrl)
+  }
+
+  When("""^I type "([^"]*)" in the "([^"]*)" field$""") { (text: String, fieldName: String) =>
+    browser.fill("input", withName(fieldName)).`with`(text)
+  }
+
+  When("""^press "([^"]*)"$""") { (buttonLabel: String) =>
+    val button = browser.find("button", withText(buttonLabel))
+    button.click()
+  }
 
 }

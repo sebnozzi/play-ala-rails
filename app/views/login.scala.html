@@ -1,0 +1,15 @@
+@(userForm:Form[Application.LoginFields])
+
+@main("Login"){
+  <h1>Log In</h1>
+  
+  @helper.form(action = routes.Application.logIn){
+    <div>
+      <input type="text" name="username" value="@userForm("username").value"/>
+    </div>
+    <div>
+      <button type="submit">Log in</button>
+    </div>
+  }
+  
+}

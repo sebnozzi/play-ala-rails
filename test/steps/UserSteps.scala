@@ -6,6 +6,8 @@ import testhelpers.PlayCucumberSupport
 import models.{ User, Post }
 import cucumber.api.DataTable
 import scala.collection.JavaConversions._
+import cucumber.api.PendingException
+import controllers.FakeAuthenticator
 
 class UserSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSupport {
 
@@ -19,6 +21,14 @@ class UserSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSu
     posts.foreach { text =>
       user.posts << Post(text)
     }
+  }
+
+  Given("""^no user is logged-in$""") { () =>
+    FakeAuthenticator.logout()
+  }
+
+  Then("""^the logged-in user should be "([^"]*)"$""") { (username: String) =>
+    FakeAuthenticator.loggedInUsername should equal(Some(username))
   }
 
 }
