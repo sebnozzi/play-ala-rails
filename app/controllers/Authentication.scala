@@ -57,6 +57,14 @@ trait Authentication { self: Controller =>
     }
   }
 
+  def logOut()(implicit request:AuthenticatedRequest) { 
+    if (Play.isTest(Play.current)) {
+      FakeAuthenticator.logout()
+    } else {
+      request.session - "username"
+    }    
+  }
+  
   private def fetchUsername(request: Request[AnyContent]) = {
     if (Play.isTest(Play.current)) {
       FakeAuthenticator.loggedInUsername

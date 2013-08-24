@@ -1,6 +1,6 @@
-@(users:List[User])
+@(users: List[User], loggedInUser: Option[User])
 
-@main("Users") {
+@main("Users", loggedInUser) {
     
     <h1>Users</h1>
     <ul>

@@ -35,5 +35,10 @@ object Application extends Controller with Authentication {
         }
       })
   }
+  
+  def doLogOut() = Authenticated { implicit r => 
+    logOut()
+    Redirect(routes.UserActions.index())
+  }
 
 }

@@ -31,4 +31,12 @@ class UserSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSu
     FakeAuthenticator.loggedInUsername should equal(Some(username))
   }
 
+  Given("""^I'm logged-in as "([^"]*)"$""") { (username: String) =>
+     FakeAuthenticator.loginAs(username)
+  }
+
+  Then("""^no user should be logged-in$""") { () =>
+    FakeAuthenticator.loggedInUsername should equal(None)
+  }
+
 }
