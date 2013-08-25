@@ -21,8 +21,9 @@ class UserPostingSteps extends ScalaDsl with EN with ShouldMatchers with PlayCuc
 
   Given("""^that user "([^"]*)" posted$""") { (username: String, datatable: DataTable) =>
     val user = User.findBy("username", username).get
-    val posts = datatable.flatten().toList
-    posts.foreach { text =>
+    val postsAndTimeAgo = datatable.flatten().toList.grouped(2)
+    postsAndTimeAgo.drop(1) // drop headers
+    postsAndTimeAgo.foreach { case List(text, timeAgo) =>
       user.posts << Post(text)
     }
   }

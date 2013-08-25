@@ -5,9 +5,10 @@ Feature: Posts of User(s)
   Background:
     Given that user "manager" exists
     And that user "manager" posted
-      | first day at work   |
-      | meeting people      | 
-      | working like crazy  |
+      | post                | hh:mm:ss ago |
+      | first day at work   | 04:00:00     |
+      | meeting people      | 00:22:00     |
+      | working like crazy  | 00:00:05     |
 
   Scenario: See the posts of a user
     When I go to the posts page of user "manager"
