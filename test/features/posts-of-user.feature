@@ -16,9 +16,9 @@ Feature: Posts of User(s)
     
   Scenario: Posts are ordered chronologically (newest on top)
     When I go to the posts page of user "manager"
-    Then the post nr. 1 should start with "working"
-    And the post nr. 2 should start with "meeting"
-    And the post nr. 3 should start with "first"
+    Then the post nr. 1 should contain "working"
+    And the post nr. 2 should contain "meeting"
+    And the post nr. 3 should contain "first"
 
   Scenario: User posts a message
     Given I'm logged-in as "manager"

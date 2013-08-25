@@ -25,11 +25,11 @@ class PostPageSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumb
     elements should have length expectedAmountOfPosts
   }
 
-  Then("""^the post nr. (\d+) should start with "([^"]*)"$""") { (postNr: Int, text: String) =>
+  Then("""^the post nr. (\d+) should contain "([^"]*)"$""") { (postNr: Int, text: String) =>
     val postsList = driver.findElement(new By.ByClassName("posts"))
     val postListItems = postsList.findElements(new By.ByTagName("li"))
     val postListItem = postListItems.get(postNr - 1)
-    postListItem.getText() should startWith(text)
+    postListItem.getText() should include(text)
   }  
   
 }
