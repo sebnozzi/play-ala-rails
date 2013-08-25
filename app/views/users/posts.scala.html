@@ -1,4 +1,5 @@
-@(user: User, posts: List[Post], loggedInUser: Option[User])
+@(user: User, posts: List[Post], postForm:Form[UserActions.PostData],
+   loggedInUser: Option[User])
 
 @main("Posts of " + user.username, loggedInUser) {
     
@@ -7,6 +8,9 @@
     @if(loggedInUser == Some(user)){
       @helper.form(action = routes.UserActions.addPost(user.id) ) {
         <div>
+            @if(postForm("post").hasErrors){
+              <div><span class="error">@postForm("post").error.get.message</span></div>
+            }
           <textarea name="post" cols="40" rows="3"></textarea>
         </div>
         <div>

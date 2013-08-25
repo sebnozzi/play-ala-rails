@@ -20,7 +20,7 @@ object UserActions extends Controller with Authentication {
   def posts(userId: Long) = OptAuthenticated { implicit r =>
     User.find(userId).map { user =>
       val posts = user.posts.orderBy(_.createdAt desc).toList
-      Ok(views.html.users.posts(user, posts, r.maybeUser))
+      Ok(views.html.users.posts(user, posts, form, r.maybeUser))
     } getOrElse {
       BadRequest("user not found")
     }
@@ -30,18 +30,20 @@ object UserActions extends Controller with Authentication {
 
   val form = Form(
     mapping(
-      "post" -> text)(PostData.apply)(PostData.unapply))
+      "post" -> text.verifying("Text required", msg => !msg.trim().isEmpty()))(PostData.apply)(PostData.unapply))
 
   def addPost(userId: Long) = Authenticated { implicit r =>
     if (r.user.id == userId) {
       val boundForm = form.bindFromRequest
-      if(!boundForm.hasErrors){
+      val user = User.find(userId).get
+      if (!boundForm.hasErrors) {
         val postText = boundForm.get.text
-        User.find(userId).map { user => user.posts << Post(postText) }
+        user.posts << Post(postText)
+        Redirect(routes.UserActions.posts(userId))
       } else {
-        Logger.debug("Input error")
+        val posts = user.posts.orderBy(_.createdAt desc).toList
+        BadRequest(views.html.users.posts(user, posts, boundForm, Some(user)))
       }
-      Redirect(routes.UserActions.posts(userId))
     } else {
       BadRequest("invalid user")
     }

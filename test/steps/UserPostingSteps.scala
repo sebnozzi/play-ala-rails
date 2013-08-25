@@ -16,7 +16,6 @@ import play.api.Logger
 
 import models.{ User, Post }
 
-
 class UserPostingSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSupport {
 
   Given("""^that user "([^"]*)" posted$""") { (username: String, datatable: DataTable) =>
@@ -29,9 +28,12 @@ class UserPostingSteps extends ScalaDsl with EN with ShouldMatchers with PlayCuc
 
   Then("""^user "([^"]*)" should have a post with "([^"]*)"$""") { (username: String, postText: String) =>
     val user = User.findBy("username", username).get
-    user.posts.exists( post => post.text === postText) should be(true)
+    user.posts.exists(post => post.text === postText) should be(true)
   }
 
-
+  Then("""^user "([^"]*)" should have (\d+) posts$""") { (username: String, amountPosts: Int) =>
+    val user = User.findBy("username", username).get
+    user.posts.size should be(amountPosts)
+  }
 
 }

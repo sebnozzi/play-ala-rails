@@ -27,3 +27,16 @@ Feature: Posts of User(s)
     And press "Post"
     Then user "manager" should have a post with "Hello there"
     
+  Scenario: Message may not be empty
+    Given I'm logged-in as "manager"
+    When I go to the posts page of user "manager"
+    And press "Post"
+    Then I should see "Text required"
+    And user "manager" should have 3 posts
+
+    When I go to the posts page of user "manager"
+    When I type "   " in the "post" field
+    And press "Post"
+    Then I should see "Text required"
+    And user "manager" should have 3 posts
+    
