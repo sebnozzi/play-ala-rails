@@ -13,7 +13,6 @@ Feature: Authentication
     And press "Log in"
     Then the logged-in user should be "Homer"
 
-  @inProgress
   Scenario: User can log-out of the system
     Given I'm logged-in as "Homer"
     
@@ -25,3 +24,15 @@ Feature: Authentication
     
     When I click on "log out"
     Then no user should be logged-in
+
+   Scenario: Trying to log-in with missing user
+    When I'm in the log-in page
+    And press "Log in"
+    Then I should see "Missing user"
+    
+   Scenario: Trying to log-in with invalid user
+    When I'm in the log-in page
+    And I type "BlahBlah" in the "username" field
+    And press "Log in"
+    Then I should see "Invalid user"
+ 

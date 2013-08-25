@@ -1,9 +1,12 @@
-@(userForm:Form[Application.LoginFields])
+@(userForm:Form[Application.LoginFields])(implicit flash: Flash)
 
 @main("Login"){
   <h1>Log In</h1>
   
   @helper.form(action = routes.Application.logIn){
+    @if(userForm("username").hasErrors){
+      <div><span class="error">@userForm("username").error.get.message</span></div>
+    }
     <div>
       <input type="text" name="username" value="@userForm("username").value"/>
     </div>
