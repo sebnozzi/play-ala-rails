@@ -9,7 +9,16 @@ import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.phantomjs.PhantomJSDriver
 import org.openqa.selenium.remote.DesiredCapabilities
 import play.Logger
+import java.io.File
 
+/**
+ * Override HEADLESS mode (which defaults to true) by creating: 
+ * 
+ *   ./tmp/cucumber.headless.txt
+ * 
+ * with the content "true" in it.
+ * 
+ * */
 object PlayCucumberEnvironment {
 
   private var _server: TestServer = _
@@ -36,8 +45,6 @@ object PlayCucumberEnvironment {
         _server.start
         Logger.info("started test server")
 
-        val headlessMode = app.configuration.getBoolean("cucumber.headless").getOrElse(true)
-
         if (headlessMode) {
           // PhantomJS has to be installed and added to the operating system PATH
           val cap = new DesiredCapabilities()
@@ -55,14 +62,25 @@ object PlayCucumberEnvironment {
   def shutdown() {
     synchronized {
       if (initialized) {
-        if(_server != null) _server.stop
+        if (_server != null) _server.stop
         Logger.info("stopped test server")
-        if(_browser != null) _browser.quit()
+        if (_browser != null) _browser.quit()
         Logger.info("stopped test browser")
         Play.stop()
         Logger.info("stopped fake app")
         initialized = false
       }
+    }
+  }
+
+  private lazy val headlessMode = {
+    val cucumberHeadlessFile = new File("./tmp/cucumber.headless.txt")
+    if (cucumberHeadlessFile.exists()) {
+      val src = scala.io.Source.fromFile(cucumberHeadlessFile)
+      val strValue = src.getLines.mkString.trim()
+      !strValue.startsWith("false")
+    } else {
+      true
     }
   }
 
