@@ -8,6 +8,10 @@ import cucumber.api.DataTable
 import scala.collection.JavaConversions._
 import cucumber.api.PendingException
 import controllers.FakeAuthenticator
+import com.github.aselab.activerecord.{ views => aviews, _ }
+import dsl._
+import play.api.Logger
+
 
 class UserSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSupport {
 
@@ -23,6 +27,11 @@ class UserSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSu
     }
   }
 
+  Then("""^user "([^"]*)" should have a post with "([^"]*)"$""") { (username: String, postText: String) =>
+    val user = User.findBy("username", username).get
+    user.posts.exists( post => post.text === postText) should be(true)
+  }
+
   Given("""^no user is logged-in$""") { () =>
     FakeAuthenticator.logout()
   }
@@ -32,7 +41,7 @@ class UserSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSu
   }
 
   Given("""^I'm logged-in as "([^"]*)"$""") { (username: String) =>
-     FakeAuthenticator.loginAs(username)
+    FakeAuthenticator.loginAs(username)
   }
 
   Then("""^no user should be logged-in$""") { () =>

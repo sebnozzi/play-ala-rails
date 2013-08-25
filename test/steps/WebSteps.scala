@@ -67,7 +67,7 @@ class WebSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSup
   }
 
   When("""^I type "([^"]*)" in the "([^"]*)" field$""") { (text: String, fieldName: String) =>
-    browser.fill("input", withName(fieldName)).`with`(text)
+    browser.fill("*", withName(fieldName)).`with`(text)
   }
 
   When("""^press "([^"]*)"$""") { (buttonLabel: String) =>

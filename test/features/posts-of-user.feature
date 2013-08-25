@@ -20,4 +20,10 @@ Feature: Posts of User(s)
     And the post nr. 2 should start with "meeting"
     And the post nr. 3 should start with "first"
 
-  
+  Scenario: User posts a message
+    Given I'm logged-in as "manager"
+    When I go to the posts page of user "manager"
+    And I type "Hello there" in the "post" field
+    And press "Post"
+    Then user "manager" should have a post with "Hello there"
+    
