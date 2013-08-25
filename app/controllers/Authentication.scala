@@ -25,7 +25,7 @@ trait Authentication { self: Controller =>
 
   case class AuthenticatedRequest(
     user: User, private val request: Request[AnyContent]) extends WrappedRequest(request)
-  
+
   case class OptAuthenticatedRequest(
     maybeUser: Option[User], private val request: Request[AnyContent]) extends WrappedRequest(request)
 
@@ -48,23 +48,27 @@ trait Authentication { self: Controller =>
       f(OptAuthenticatedRequest(maybeUser, request))
     }
   }
-  
-  def logInAs(username:String)(implicit request:Request[AnyContent]) {
+
+  def LoginAndRedirect(username: String, call: Call)(implicit request: Request[AnyContent]) = {
     if (Play.isTest(Play.current)) {
       FakeAuthenticator.loginAs(username)
+      Redirect(call)
     } else {
-      request.session + ("username" -> username)
+      Redirect(call).
+        withSession(session + ("username" -> username))
     }
   }
 
-  def logOut()(implicit request:AuthenticatedRequest) { 
+  def LogoutAndRedirect(call: Call)(implicit request: Request[AnyContent]) = {
     if (Play.isTest(Play.current)) {
       FakeAuthenticator.logout()
+      Redirect(call)
     } else {
-      request.session - "username"
-    }    
+      Redirect(call).
+        withSession(session - "username")
+    }
   }
-  
+
   private def fetchUsername(request: Request[AnyContent]) = {
     if (Play.isTest(Play.current)) {
       FakeAuthenticator.loggedInUsername

@@ -12,7 +12,7 @@ import models._
 
 object UserActions extends Controller with Authentication {
 
-  def index = OptAuthenticated { implicit r =>
+  def index() = OptAuthenticated { implicit r =>
     val users: List[User] = User.toList
     Ok(views.html.users.index(users, r.maybeUser))
   }
