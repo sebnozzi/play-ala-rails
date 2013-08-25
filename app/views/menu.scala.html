@@ -1,8 +1,11 @@
 @(loggedInUser: Option[User])
 
-@if(loggedInUser.isDefined) {
-  <div>logged in as <strong>@loggedInUser.get.username</strong>
-  -- <a href="@routes.Application.doLogOut()">log out</a></div>
-} else {
-  <a href="@routes.Application.logIn()">log in</a>
-}
+<ul>
+  @if(loggedInUser.isDefined) {
+    <li>logged in as <strong>@loggedInUser.get.username</strong></li>
+    <li><a href="@routes.Application.doLogOut()">log out</a></li>
+  } else {
+    <li><a href="@routes.Application.logIn()">log in</a></li>
+  }
+  <li><a href="@routes.UserActions.index()">users</a></li>
+</ul>
