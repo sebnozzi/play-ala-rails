@@ -15,6 +15,8 @@ object ApplicationBuild extends Build {
 
   val cucumberScala = "info.cukes" % "cucumber-scala_2.10" % "1.1.5-SNAPSHOT" % "test"  
   
+  val prettyTime = "org.ocpsoft.prettytime" % "prettytime" % "3.0.2.Final"
+  
   val phantomJsDriver = "com.github.detro.ghostdriver" % "phantomjsdriver" % "1.0.3" % "test"
 
   val appDependencies = Seq(
@@ -23,6 +25,7 @@ object ApplicationBuild extends Build {
     activeRecord,
     mysql,
     phantomJsDriver,
+    prettyTime,
     flyway,
     cucumberScala,
     jdbc)

@@ -17,7 +17,7 @@
     
     <ul class="posts">
       @for(p <- posts){
-        <li class="post">@p.text</li>
+        <li class="post">@p.prettyTime &mdash; @p.text</li>
       }
     </ul>
     
