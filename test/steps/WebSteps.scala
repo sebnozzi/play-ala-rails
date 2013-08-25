@@ -42,10 +42,7 @@ class WebSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSup
   When("""^I click on "([^"]*)"$""") { (username: String) =>
     val startUrl = driver.getCurrentUrl()
     val element = driver.findElement(new By.ByPartialLinkText(username))
-    browser.waitUntil {
-      element.click()
-      driver.getCurrentUrl() != startUrl
-    }
+    element.click()
   }
 
   Then("""^I should be on the posts page of "([^"]*)"$""") { (username: String) =>
