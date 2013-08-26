@@ -17,12 +17,12 @@ Feature: Authentication
     Given I'm logged-in as "Homer"
     
     When I go to the "user list" page
-    Then I should see "log out"
+    Then I should see "Log out"
     
     When I go to the posts page of user "Homer"
-    Then I should see "log out"
+    Then I should see "Log out"
     
-    When I click on "log out"
+    When I click on "Log out"
     Then no user should be logged-in
 
    Scenario: Trying to log-in with missing user

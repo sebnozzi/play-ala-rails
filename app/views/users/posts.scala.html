@@ -9,7 +9,7 @@
       @helper.form(action = routes.UserActions.addPost(user.id) ) {
         <div>
             @if(postForm("post").hasErrors){
-              <div><span class="error">@postForm("post").error.get.message</span></div>
+              <div class="alert alert-error">@postForm("post").error.get.message</div>
             }
           <textarea name="post" cols="40" rows="3"></textarea>
         </div>
@@ -21,7 +21,11 @@
     
     <ul class="posts">
       @for(p <- posts){
-        <li class="post">@p.prettyTime &mdash; @p.text</li>
+        <li class="post">
+          <div class="well">
+            <p>@p.text</p>
+            <p class="timestamp">&mdash; @p.prettyTime</p></div>
+        </li>
       }
     </ul>
     

@@ -17,7 +17,7 @@ class PostPageSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumb
   Then("""^I should be on the posts page of "([^"]*)"$""") { (username: String) =>
     val user = User.findBy("username", username).get
     val expectedUrl = controllers.routes.UserActions.posts(user.id).url
-    (driver.getCurrentUrl()) should endWith(expectedUrl)
+    driver.getCurrentUrl() should endWith(expectedUrl)
   }
   
   Then("""^I should see (\d+) posts$""") { (expectedAmountOfPosts: Int) =>

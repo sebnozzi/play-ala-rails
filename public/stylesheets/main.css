@@ -2,3 +2,11 @@
 .error {
   color: red;
 }
+
+ul.posts {
+  list-style-type: none;
+}
+
+.post .timestamp {
+  font-size: smaller;
+}

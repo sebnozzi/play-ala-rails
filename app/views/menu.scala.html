@@ -1,11 +1,23 @@
 @(loggedInUser: Option[User])
 
-<ul>
+<ul class="nav nav-tabs">  
   @if(loggedInUser.isDefined) {
-    <li>logged in as <strong>@loggedInUser.get.username</strong></li>
-    <li><a href="@routes.Application.doLogOut()">log out</a></li>
-  } else {
-    <li><a href="@routes.Application.logIn()">log in</a></li>
+    <li>
+      <a href="@routes.UserActions.posts(loggedInUser.get.id)">
+        [ <strong>@loggedInUser.get.username</strong> ]
+      </a>
+    </li>
   }
-  <li><a href="@routes.UserActions.index()">users</a></li>
+  
+  <li><a href="@routes.UserActions.index()">Users</a></li>
+  
+  @if(loggedInUser.isDefined) {
+    <li>
+      <a href="@routes.Application.doLogOut()">
+       Log out
+      </a>
+    </li>
+  } else {
+    <li><a href="@routes.Application.logIn()">Log in</a></li>
+  }
 </ul>

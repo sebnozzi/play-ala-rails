@@ -12,9 +12,8 @@ import org.fluentlenium.core.filter.FilterConstructor._
 
 class InteractionSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSupport {
 
-  When("""^I click on "([^"]*)"$""") { (username: String) =>
-    val startUrl = driver.getCurrentUrl()
-    val element = driver.findElement(new By.ByPartialLinkText(username))
+  When("""^I click on "([^"]*)"$""") { (linkLabel: String) =>
+    val element = driver.findElement(new By.ByPartialLinkText(linkLabel))
     element.click()
   }  
   
@@ -22,7 +21,7 @@ class InteractionSteps extends ScalaDsl with EN with ShouldMatchers with PlayCuc
     browser.fill("*", withName(fieldName)).`with`(text)
   }
 
-  When("""^press "([^"]*)"$""") { (buttonLabel: String) =>
+  And("""^press "([^"]*)"$""") { (buttonLabel: String) =>
     val button = browser.find("button", withText(buttonLabel))
     button.click()
   }  

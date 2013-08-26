@@ -3,7 +3,7 @@
 @main("Users", loggedInUser) {
     
     <h1>Users</h1>
-    <ul>
+    <ul class="nav nav-tabs nav-stacked">
       @for(u <- users){
         <li><a href="@routes.UserActions.posts(u.id)">@u.username</a></li>
       }

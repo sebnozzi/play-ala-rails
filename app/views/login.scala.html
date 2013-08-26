@@ -5,7 +5,7 @@
   
   @helper.form(action = routes.Application.logIn){
     @if(userForm("username").hasErrors){
-      <div><span class="error">@userForm("username").error.get.message</span></div>
+      <div class="alert alert-error">@userForm("username").error.get.message</div>
     }
     <div>
       <input type="text" name="username" value="@userForm("username").value"/>
