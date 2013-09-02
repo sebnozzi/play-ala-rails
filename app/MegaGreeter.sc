@@ -4,7 +4,7 @@ object MegaGreeter {
 
     def names_=(newName: String): Unit = {
       if (newName == null)
-        names = Seq()
+        names = null:Seq[String]
       else
         this.names = Seq(newName)
     }
@@ -30,7 +30,7 @@ object MegaGreeter {
     }
   }
 
-  val mg = new MegaGreeter()                      //> mg  : MegaGreeter.MegaGreeter = MegaGreeter$MegaGreeter@1f427f2e
+  val mg = new MegaGreeter()                      //> mg  : MegaGreeter.MegaGreeter = MegaGreeter$MegaGreeter@32fac7c5
   mg.sayHi                                        //> Hello World
   mg.sayBye                                       //> Goodbye World. Come back soon!
 
@@ -48,7 +48,7 @@ object MegaGreeter {
   mg.sayBye                                       //> Goodbye Albert, Brenda, Charles, Dave, Engelbert. Come back soon!
 
   mg.names = null: String
-  mg.sayHi
-  mg.sayBye                                       //> Goodbye . Come back soon!
+  mg.sayHi                                        //> ...
+  mg.sayBye                                       //> ...
 
 }
