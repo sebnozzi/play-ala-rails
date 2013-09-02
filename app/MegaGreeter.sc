@@ -1,15 +1,11 @@
 object MegaGreeter {
 
-  class MegaGreeter(var names: Seq[String] = Seq("World")) {
+  class MegaGreeter(val names: Seq[String] = Seq("World")) {
 
-    def names_=(newName: Option[String]): Unit = {
-      if (newName == None)
-        names = Seq()
-      else
-        this.names = Seq(newName.get)
-    }
-
-    def names_=(newName: String): Unit = names_=(Some(newName))
+    def this(name: String) = this(Seq(name))
+    def this(name: Option[String]) = this(
+      name.map(str => Seq(str)).getOrElse(Seq())
+    )
 
     private def chainedNames = names.mkString(", ")
 
@@ -32,25 +28,37 @@ object MegaGreeter {
     }
   }
 
-  val mg = new MegaGreeter()                      //> mg  : MegaGreeter.MegaGreeter = MegaGreeter$MegaGreeter@6e5170a8
-  mg.sayHi                                        //> Hello World
-  mg.sayBye                                       //> Goodbye World. Come back soon!
+  {
+    val mg = new MegaGreeter()
+    mg.sayHi
+    mg.sayBye
+  }                                               //> Hello World
+                                                  //| Goodbye World. Come back soon!
 
-  mg.names = "Zeke"
-  mg.sayHi                                        //> Hello Zeke
-  mg.sayBye                                       //> Goodbye Zeke. Come back soon!
+  {
+    val mg = new MegaGreeter(name = "Zeke")
+    mg.sayHi
+    mg.sayBye
+  }                                               //> Hello Zeke
+                                                  //| Goodbye Zeke. Come back soon!
 
-  mg.names = List("Albert", "Brenda", "Charles",
-    "Dave", "Engelbert")
-  mg.sayHi                                        //> Hello Albert
+  {
+    val mg = new MegaGreeter(List("Albert", "Brenda", "Charles",
+      "Dave", "Engelbert"))
+    mg.sayHi
+    mg.sayBye
+  }                                               //> Hello Albert
                                                   //| Hello Brenda
                                                   //| Hello Charles
                                                   //| Hello Dave
                                                   //| Hello Engelbert
-  mg.sayBye                                       //> Goodbye Albert, Brenda, Charles, Dave, Engelbert. Come back soon!
+                                                  //| Goodbye Albert, Brenda, Charles, Dave, Engelbert. Come back soon!
 
-  mg.names = None
-  mg.sayHi                                        //> ...
-  mg.sayBye                                       //> ...
+  {
+    val mg = new MegaGreeter(name = None)
+    mg.sayHi
+    mg.sayBye
+  }                                               //> ...
+                                                  //| ...
 
 }
