@@ -1,16 +1,5 @@
 object MegaGreeter {
 
-  class Greeter(name: String = "World") {
-
-    def sayHi() {
-      println(s"Hello $name!")
-    }
-
-    def sayBye() {
-      println(s"Bye $name, come back soon.")
-    }
-  }
-
   class MegaGreeter(var names: Any = Seq("World")) {
 
     private def nameList: Seq[String] = {
@@ -41,7 +30,7 @@ object MegaGreeter {
     }
   }
 
-  val mg = new MegaGreeter()                      //> mg  : MegaGreeter.MegaGreeter = MegaGreeter$MegaGreeter@923ef32
+  val mg = new MegaGreeter()                      //> mg  : MegaGreeter.MegaGreeter = MegaGreeter$MegaGreeter@32fac7c5
   mg.sayHi                                        //> Hello World
   mg.sayBye                                       //> Goodbye World. Come back soon!
 
