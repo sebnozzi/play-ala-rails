@@ -1,12 +1,19 @@
 object MegaGreeter {
 
-  class MegaGreeter(var names: Any = Seq("World")) {
+  class MegaGreeter(var names: Seq[String] = Seq("World")) {
 
     private def nameList: Seq[String] = {
       names match {
         case seq: Seq[_] => seq.map(_.toString)
         case _ => Seq(names.toString())
       }
+    }
+
+    def names_=(newName: String):Unit = {
+      if(newName==null)
+        names = Seq()
+      else
+        this.names = Seq(newName)
     }
 
     private def chainedNames = nameList.mkString(", ")
@@ -30,7 +37,7 @@ object MegaGreeter {
     }
   }
 
-  val mg = new MegaGreeter()                      //> mg  : MegaGreeter.MegaGreeter = MegaGreeter$MegaGreeter@32fac7c5
+  val mg = new MegaGreeter()                      //> mg  : MegaGreeter.MegaGreeter = MegaGreeter$MegaGreeter@6e5170a8
   mg.sayHi                                        //> Hello World
   mg.sayBye                                       //> Goodbye World. Come back soon!
 
@@ -47,8 +54,8 @@ object MegaGreeter {
                                                   //| Hello Engelbert
   mg.sayBye                                       //> Goodbye Albert, Brenda, Charles, Dave, Engelbert. Come back soon!
 
-  mg.names = null
-  mg.sayHi                                        //> ...
-  mg.sayBye                                       //> ...
+  mg.names = null:String
+  mg.sayHi
+  mg.sayBye                                       //> Goodbye . Come back soon!
 
 }
