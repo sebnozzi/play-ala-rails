@@ -19,3 +19,4 @@ dist
 /chromedriver.log
 /libpeerconnection.log
 .DS_Store
+.worksheet
