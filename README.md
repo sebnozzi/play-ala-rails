@@ -5,9 +5,9 @@ Sample Play app integrating some technologies in the attempt to make it more "Ra
 
 The technologies are:
 
-* ActiveRecord (Scala implementation based on Squeryl)
-* Flyway
-* Cucumber-JVM (through the SBT plugin)
+* [ActiveRecord](https://github.com/aselab/scala-activerecord) (Scala implementation based on Squeryl)
+* [Flyway](http://flywaydb.org/)
+* [Cucumber-JVM](https://github.com/cucumber/cucumber-jvm) (through the [SBT plugin](https://github.com/skipoleschris/xsbt-cucumber-plugin))
 
 Integration
 -----------
@@ -21,3 +21,19 @@ Places to look for in order to understand the integration steps involved:
 * PlayCucumberEnvironment
 * etc.
 
+Setup / Dependencies
+--------------------
+**[PhantomJS](http://phantomjs.org/)** has to be installed in the system according to its website (executable has to be on the PATH).
+
+The non-test version of the App uses MySql by default. Change the settings in `application.conf`
+
+
+Cucumber
+--------
+
+In order to run cucumber tests, run "cucumber" in the sbt console.
+
+```
+  [play-ala-rails]$ play
+  [PlayAlaRails] $ cucumber
+```
