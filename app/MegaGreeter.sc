@@ -3,11 +3,13 @@ object MegaGreeter {
   class MegaGreeter(val names: Seq[String] = Seq("World")) {
 
     def this(name: String) = this(Seq(name))
+    
     def this(name: Option[String]) = this(
-      name.map(str => Seq(str)).getOrElse(Seq())
+      if(name.isDefined)
+        Seq(name.get)
+      else
+        Seq.empty
     )
-
-    private def chainedNames = names.mkString(", ")
 
     def sayHi() {
       if (names.isEmpty) {
@@ -23,7 +25,7 @@ object MegaGreeter {
       if (names.isEmpty) {
         println("...")
       } else {
-        println(s"Goodbye $chainedNames. Come back soon!")
+        println(s"Goodbye ${names.mkString(", ")}. Come back soon!")
       }
     }
   }
