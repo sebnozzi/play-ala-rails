@@ -15,17 +15,22 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     if (Play.isTest) {
-      Tables.initialize
+      val config = Map(
+        "autoCreate" -> true,
+        "autoDrop" -> true)
+      Tables.initialize(config)
     } else {
       val config = Map(
         "driver" -> app.configuration.getString("db.default.driver").get,
         "jdbcurl" -> app.configuration.getString("db.default.url").get,
         "username" -> app.configuration.getString("db.default.user").get,
-        "password" -> app.configuration.getString("db.default.pass").get)
-      /* NOTE: schema is generated only if completely empty
-         In production new tables/fields won't be generated. Use migrations for that. */
+        "password" -> app.configuration.getString("db.default.pass").get,
+        "autoCreate" -> false,
+        "autoDrop" -> false)
+
+      migrateDb(app)  // to avoid a chicken-egg problem FlyWay should not use ActiveRecord
+
       Tables.initialize(config)
-      migrateDb(app)
     }
 
     if (shouldPrintSchemaGeneration(app)) {
