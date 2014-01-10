@@ -1,7 +1,7 @@
 package steps
 
 import cucumber.api.scala.{ ScalaDsl, EN }
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers
 
 import testhelpers.PlayCucumberSupport
 
@@ -16,7 +16,7 @@ import play.api.Logger
 
 import models.{ User, Post }
 
-class UserPostingSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSupport {
+class UserPostingSteps extends ScalaDsl with EN with Matchers with PlayCucumberSupport {
 
   Given("""^that user "([^"]*)" posted$""") { (username: String, datatable: DataTable) =>
     val user = User.findBy("username", username).get

@@ -5,11 +5,11 @@ logLevel := Level.Warn
 resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 
 // Use the Play sbt plugin for Play projects
-addSbtPlugin("play" % "sbt-plugin" % "2.1.3")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.1")
 
 
 // Cucumber 
 resolvers += "Templemore Repository" at "http://templemore.co.uk/repo"
 
 // Cucumber
-addSbtPlugin("templemore" % "sbt-cucumber-plugin" % "0.7.2")
+addSbtPlugin("templemore" % "sbt-cucumber-plugin" % "0.8.0")

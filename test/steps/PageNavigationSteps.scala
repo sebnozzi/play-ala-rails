@@ -3,7 +3,7 @@ package steps
 import play.api._
 import play.api.mvc._
 import cucumber.api.scala.{ ScalaDsl, EN }
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers
 import testhelpers.PlayCucumberSupport
 import org.openqa.selenium.By
 import models._
@@ -12,7 +12,7 @@ import cucumber.api.PendingException
 
 import org.fluentlenium.core.filter.FilterConstructor._
 
-class PageNavigationSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSupport {
+class PageNavigationSteps extends ScalaDsl with EN with Matchers with PlayCucumberSupport {
 
   def baseUrl = s"http://localhost:$port"
 

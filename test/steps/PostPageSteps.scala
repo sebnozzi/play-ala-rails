@@ -3,16 +3,14 @@ package steps
 import play.api._
 import play.api.mvc._
 import cucumber.api.scala.{ ScalaDsl, EN }
-import org.scalatest.matchers.ShouldMatchers
 import testhelpers.PlayCucumberSupport
-
 import org.openqa.selenium._
 import org.fluentlenium.core.filter.FilterConstructor._
-
 import models._
+import org.scalatest.Matchers
 
 
-class PostPageSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSupport {
+class PostPageSteps extends ScalaDsl with EN with Matchers with PlayCucumberSupport {
 
   Then("""^I should be on the posts page of "([^"]*)"$""") { (username: String) =>
     val user = User.findBy("username", username).get

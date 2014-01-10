@@ -3,14 +3,14 @@ package steps
 import play.api._
 import play.api.mvc._
 import cucumber.api.scala.{ ScalaDsl, EN }
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers
 import testhelpers.PlayCucumberSupport
 
 import org.openqa.selenium._
 import org.fluentlenium.core.filter.FilterConstructor._
 
 
-class InteractionSteps extends ScalaDsl with EN with ShouldMatchers with PlayCucumberSupport {
+class InteractionSteps extends ScalaDsl with EN with Matchers with PlayCucumberSupport {
 
   When("""^I click on "([^"]*)"$""") { (linkLabel: String) =>
     val element = driver.findElement(new By.ByPartialLinkText(linkLabel))
